@@ -26,7 +26,7 @@ class Book(models.Model):
 
 
 class Author(models.Model):
-    name = models.CharField(max_length=128, verbose_name="Имя автора")
+    name = models.CharField(max_length=128, verbose_name="Имя автора", unique=True)
 
     def __str__(self):
         return f'{self.name}'

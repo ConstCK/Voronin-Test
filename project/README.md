@@ -8,4 +8,6 @@ BackEnd:
 Запустите сервер из каталога проекта (python manage.py runserver)
 
 EndPoints:
-http://127.0.0.1:8000/api/ - Descriptions
+http://127.0.0.1:8000/api/books - Список всех книг при GET запросе
+http://127.0.0.1:8000/api/books - Создание новой книги при POST запросе
+http://127.0.0.1:8000/api/books/<:id> - Получение, Изменение, Удаление книги при GET, PATCH/PUT, DELETE запросе.
