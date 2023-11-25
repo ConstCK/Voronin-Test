@@ -4,8 +4,10 @@ from .models import Book, Author
 
 
 class BookSerializer(serializers.ModelSerializer):
+    authors = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all(), many=True)
+
     class Meta:
-        fields = '__all__'
+        fields = ['title', 'author', 'published_in', 'isbn']
         model = Book
         depth = 1
 

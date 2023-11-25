@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  django:
+    build: .
+    ports:
+      - "8000:8000"
+    command: bash -c "python project/manage.py makemigrations 
+      && python project/manage.py migrate
+      && python project/manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - mysql
+      - redis
+
+  celery:
+    build: .
+    command: bash -c 'cd project/ && celery -A project worker -l INFO'
+    depends_on:
+      - django
+      - mysql
+      - redis
+
+  mysql:
+    image: mysql
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: my_database
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8888:8080'
+
+  redis:
+    image: redis
+
+volumes:
+  db_data:
